@@ -23,7 +23,7 @@ import rasters as rt
 from rasters import RasterGeometry, Raster
 
 DEFAULT_URL = "https://daac.ornl.gov/daacdata/global_vegetation/Global_Clumping_Index/data/global_clumping_index.tif"
-DEFAULT_DIRECTORY = "MODISCI_download"
+DEFAULT_DIRECTORY = join("~", "data", "MODISCI")
 
 __author__ = "Gregory Halverson"
 
@@ -60,7 +60,7 @@ class MODISCI:
                 logger.warning("netrc credentials not found for urs.earthdata.nasa.gov")
 
         self.URL = URL
-        self.directory = expanduser(directory)
+        self.directory = directory
         self.chunk_size = chunk_size
         self._username = username
         self._password = password
@@ -95,18 +95,22 @@ class MODISCI:
         urllib.request.install_opener(opener)
 
     @property
-    def filename(self):
+    def filename(self) -> str:
         return join(self.directory, posixpath.basename(self.URL))
 
+    @property
+    def filename_absolute(self) -> str:
+        return abspath(expanduser(self.filename))
+
     def download(self) -> str:
-        if exists(self.filename):
+        if exists(self.filename_absolute):
             self.logger.info("file already downloaded: " + cl.file(self.filename))
             return self.filename
 
         self.logger.info(f"downloading: {self.URL} -> {self.filename}")
-        directory = dirname(self.filename)
+        directory = dirname(self.filename_absolute)
         makedirs(directory, exist_ok=True)
-        partial_filename = f"{self.filename}.download"
+        partial_filename = f"{self.filename_absolute}.download"
         command = f'wget -c --user {self._username} --password {self._password} -O "{partial_filename}" "{self.URL}"'
         download_start = perf_counter()
         os.system(command)
@@ -117,7 +121,7 @@ class MODISCI:
         if not exists(partial_filename):
             raise IOError(f"unable to download URL: {self.URL}")
 
-        shutil.move(partial_filename, self.filename)
+        shutil.move(partial_filename, self.filename_absolute)
 
         return self.filename
 
