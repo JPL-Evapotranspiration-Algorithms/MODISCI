@@ -1,6 +1,6 @@
-# `modisci` Python Package
+# `MODISCI` Python Package
 
-The `modisci` Python package generates rasters of MODIS clumping index.
+The `MODISCI` Python package generates rasters of MODIS clumping index.
 
 [Gregory H. Halverson](https://github.com/gregory-halverson-jpl) (they/them)<br>
 [gregory.h.halverson@jpl.nasa.gov](mailto:gregory.h.halverson@jpl.nasa.gov)<br>
@@ -8,18 +8,18 @@ NASA Jet Propulsion Laboratory 329G
 
 ## Installation
 
-This package is available on PyPi as a [pip package](https://pypi.org/project/modisci/) called `modisci`.
+This package is available on PyPi as a [pip package](https://pypi.org/project/modisci/) called `MODISCI`.
 
 ```bash
-pip install modisci
+pip install MODISCI
 ```
 
 ## Usage
 
-Import this package as `modisci`.
+Import this package as `MODISCI`.
 
 ```python
-import modisci
+import MODISCI
 ```
 
 ## References
