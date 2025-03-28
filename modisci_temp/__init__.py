@@ -1,4 +1,4 @@
-from .modisci import *
+from .modisci_temp import *
 
 from os.path import join, dirname, abspath
 
