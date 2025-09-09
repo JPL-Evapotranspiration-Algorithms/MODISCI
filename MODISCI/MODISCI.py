@@ -126,5 +126,7 @@ class MODISCI:
         return self.filename
 
     def CI(self, geometry: RasterGeometry, resampling=None) -> Raster:
-        filename = self.download()
-        return rt.Raster.open(filename, geometry=geometry, resampling=resampling, fill=20) / 255
+        self.download()
+        CI = rt.Raster.open(self.filename_absolute, geometry=geometry, resampling=resampling, fill=20) / 255
+
+        return CI
